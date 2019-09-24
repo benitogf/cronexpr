@@ -305,6 +305,33 @@ func TestInterval_Interval60Issue(t *testing.T) {
 	}
 }
 
+func TestNowIsNext(t *testing.T) {
+	nt := time.Now()
+	now := time.Date(
+		nt.Year(),
+		nt.Month(),
+		nt.Day(),
+		nt.Hour(),
+		nt.Minute(),
+		0,
+		0,
+		nt.Location())
+
+	// then is one second before
+	then := now.Add(time.Duration(-1) * time.Second)
+	cron, err := Parse("* * * * * *")
+	if err != nil {
+		t.Errorf("parse every minute cron failed")
+	}
+	// evaluate cron to then
+	next := cron.Next(then)
+	// diff := next.Sub(now)
+	// log.Println(now, next, diff)
+	if !next.Equal(now) {
+		t.Errorf("next should be now test failed")
+	}
+}
+
 /******************************************************************************/
 
 var benchmarkExpressions = []string{
