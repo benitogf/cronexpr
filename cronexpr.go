@@ -91,7 +91,7 @@ func Parse(cronLine string) (*Expression, error) {
 		if err != nil {
 			return nil, err
 		}
-		field += 1
+		field++
 	} else {
 		expr.secondList = []int{0}
 	}
@@ -101,35 +101,35 @@ func Parse(cronLine string) (*Expression, error) {
 	if err != nil {
 		return nil, err
 	}
-	field += 1
+	field++
 
 	// hour field
 	err = expr.hourFieldHandler(cron[indices[field][0]:indices[field][1]])
 	if err != nil {
 		return nil, err
 	}
-	field += 1
+	field++
 
 	// day of month field
 	err = expr.domFieldHandler(cron[indices[field][0]:indices[field][1]])
 	if err != nil {
 		return nil, err
 	}
-	field += 1
+	field++
 
 	// month field
 	err = expr.monthFieldHandler(cron[indices[field][0]:indices[field][1]])
 	if err != nil {
 		return nil, err
 	}
-	field += 1
+	field++
 
 	// day of week field
 	err = expr.dowFieldHandler(cron[indices[field][0]:indices[field][1]])
 	if err != nil {
 		return nil, err
 	}
-	field += 1
+	field++
 
 	// year field
 	if field < fieldCount {
@@ -255,7 +255,7 @@ func (expr *Expression) NextN(fromTime time.Time, n uint) []time.Time {
 				break
 			}
 			nextTimes = append(nextTimes, fromTime)
-			n -= 1
+			n--
 			if n == 0 {
 				break
 			}
